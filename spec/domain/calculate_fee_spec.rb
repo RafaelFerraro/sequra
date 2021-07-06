@@ -1,14 +1,4 @@
-class CalculateFee
-  def calculate_by_amount(amount)
-    fee = {
-      (0..49.99) => 1.0,
-      (50..300.99) => 0.95,
-      (301..Float::INFINITY) => 0.85
-    }.select { |range| range.include?(amount) }.values.first
-
-    (amount * (fee/100)).round(2)
-  end
-end
+require './domain/calculate_fee'
 
 RSpec.describe "Calculate disbursement" do
   context 'when amount is smaller than 50' do
