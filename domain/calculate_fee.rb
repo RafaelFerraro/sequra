@@ -3,6 +3,8 @@ class CalculateFee
     (amount * (fee_value_by_amount(amount)/100)).round(2)
   end
 
+  private
+
   def fee_value_by_amount(amount)
     {
       (0..49.99) => 1.0,
