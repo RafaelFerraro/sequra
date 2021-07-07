@@ -18,4 +18,13 @@ class Disbursement
     @disbursed_at = attributes.fetch(:disbursed_at)
     @amount = attributes.fetch(:amount)
   end
+
+  def to_h
+    {
+      id: @id,
+      merchant_id: @merchant_id,
+      disbursed_at: @disbursed_at,
+      amount: @amount
+    }
+  end
 end
