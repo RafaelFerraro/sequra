@@ -5,7 +5,7 @@ RSpec.describe "Calculate disbursement" do
     it 'returns 1% of the amount' do
       amount = 49.2
 
-      result = CalculateFee.new.calculate_by_amount(amount)
+      result = CalculateFee.new.calculate_for_amount(amount)
 
       expect(result).to eq(0.49)
     end
@@ -15,7 +15,7 @@ RSpec.describe "Calculate disbursement" do
     it 'returns 0.95% of the amount' do
       amount = 50.0
 
-      result = CalculateFee.new.calculate_by_amount(amount)
+      result = CalculateFee.new.calculate_for_amount(amount)
 
       expect(result).to eq(0.48)
     end
@@ -26,7 +26,7 @@ RSpec.describe "Calculate disbursement" do
       it 'returns 0.95% of the amount' do
         amount = 290.0
 
-        result = CalculateFee.new.calculate_by_amount(amount)
+        result = CalculateFee.new.calculate_for_amount(amount)
 
         expect(result).to eq(2.76)
       end
@@ -37,7 +37,7 @@ RSpec.describe "Calculate disbursement" do
     it 'returns 0.95% of the amount' do
       amount = 300.0
 
-      result = CalculateFee.new.calculate_by_amount(amount)
+      result = CalculateFee.new.calculate_for_amount(amount)
 
       expect(result).to eq(2.85)
     end
@@ -47,7 +47,7 @@ RSpec.describe "Calculate disbursement" do
     it 'returns 0.85% of the amount' do
       amount = 3_000.0
 
-      result = CalculateFee.new.calculate_by_amount(amount)
+      result = CalculateFee.new.calculate_for_amount(amount)
 
       expect(result).to eq(25.5)
     end

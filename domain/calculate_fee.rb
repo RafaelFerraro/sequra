@@ -1,11 +1,11 @@
 class CalculateFee
-  def calculate_by_amount(amount)
-    (amount * (fee_value_by_amount(amount)/100)).round(2)
+  def calculate_for_amount(amount)
+    (amount * (fee_value_for_amount(amount)/100)).round(2)
   end
 
   private
 
-  def fee_value_by_amount(amount)
+  def fee_value_for_amount(amount)
     {
       (0..49.99) => 1.0,
       (50..300.99) => 0.95,
