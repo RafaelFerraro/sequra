@@ -13,7 +13,7 @@ RSpec.describe DisbursementsRepository do
     it 'persists the disbursement properly' do
       disbursement = Disbursement.new({
         merchant_id: 1,
-        disbursed_at: DateTime.now.strftime("%d/%m/%Y %H:%M:%S"),
+        disbursed_at: DateTime.now,
         amount: 2.89
       })
 

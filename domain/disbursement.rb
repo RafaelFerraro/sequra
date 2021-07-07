@@ -1,14 +1,15 @@
 require 'securerandom'
 require 'date'
+require './domain/calculate_fee'
 
 class Disbursement
   attr_reader :id, :merchant_id, :disbursed_at, :amount
 
-  def self.create_from_order(order, calculate_fee = CalculateFee.new)
+  def self.create_from_order(order, calculate_fee = ::CalculateFee.new)
     new(
       merchant_id: order["merchant_id"],
       disbursed_at: DateTime.now,
-      amount: calculate_fee.calculate_for_amount(order["amount"])
+      amount: calculate_fee.calculate_for_amount(order["amount"].to_f)
     )
   end
 
@@ -23,7 +24,7 @@ class Disbursement
     {
       id: @id,
       merchant_id: @merchant_id,
-      disbursed_at: @disbursed_at,
+      disbursed_at: @disbursed_at.strftime("%d/%m/%Y %H:%M:%S"),
       amount: @amount
     }
   end
