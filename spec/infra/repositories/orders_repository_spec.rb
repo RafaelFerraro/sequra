@@ -32,7 +32,7 @@ RSpec.describe OrdersRepository do
         ]
       }
 
-      result = OrdersRepository.new(json_list).find_week_completed_orders
+      result = OrdersRepository.find_week_completed_orders(json_list)
 
       expect(result.length).to eq(1)
       expect(result.first["id"]).to eq("2")
@@ -60,7 +60,7 @@ RSpec.describe OrdersRepository do
         ]
       }
 
-      result = OrdersRepository.new(json_list).find_week_completed_orders
+      result = OrdersRepository.find_week_completed_orders(json_list)
 
       expect(result.empty?).to eq(true)
     end

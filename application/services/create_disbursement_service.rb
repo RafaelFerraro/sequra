@@ -5,7 +5,7 @@ require './domain/disbursement'
 class CreateDisbursementService
   def initialize(overrides = {})
     @orders_repository = overrides.fetch(:orders_repository) do
-      OrdersRepository.new
+      OrdersRepository
     end
     @disbursements_repository = overrides.fetch(:disbursements_repository) do
       DisbursementsRepository
