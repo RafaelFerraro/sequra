@@ -5,8 +5,6 @@ class Disbursement
   attr_reader :id, :merchant_id, :disbursed_at, :amount
 
   def self.create_from_order(order, calculate_fee = CalculateFee.new)
-    p "ORDER"
-    p order
     new(
       merchant_id: order["merchant_id"],
       disbursed_at: DateTime.now,
