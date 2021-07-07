@@ -1,5 +1,7 @@
+require 'json'
 require 'sinatra'
+require './infra/repositories/disbursements_repository'
 
 get '/disbursements' do
-  p "hello disbursements"
+  DisbursementsRepository.all.to_json
 end
