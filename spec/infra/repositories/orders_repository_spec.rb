@@ -11,7 +11,7 @@ RSpec.describe OrdersRepository do
             "shopper_id" => "328",
             "amount" => "287.22",
             "created_at" => "01/01/2018 19:57:00",
-            "completed_at" => nil
+            "completed_at" => ""
           },
           {
             "id" => "2",
@@ -47,7 +47,7 @@ RSpec.describe OrdersRepository do
             "shopper_id" => "328",
             "amount" => "287.22",
             "created_at" => "01/01/2018 19:57:00",
-            "completed_at" => nil
+            "completed_at" => ""
           },
           {
             "id" => "2",
@@ -55,7 +55,7 @@ RSpec.describe OrdersRepository do
             "shopper_id" => "327",
             "amount" => "288.71",
             "created_at" => "01/01/2018 20:54:00",
-            "completed_at" => nil
+            "completed_at" => ""
           }
         ]
       }
