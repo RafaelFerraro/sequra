@@ -1,8 +1,8 @@
 class DisbursementsRepository
   @@disbursements = []
 
-  def self.create_in_batch(disbursements)
-    disbursements.each { |disbursement| @@disbursements << disbursement }
+  def self.create(disbursement)
+    @@disbursements << disbursement
   end
 
   def self.all
