@@ -1,0 +1,59 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
+    diff-lcs (1.4.4)
+    e2mmap (0.1.0)
+    et-orbi (1.2.4)
+      tzinfo
+    fugit (1.5.0)
+      et-orbi (~> 1.1, >= 1.1.8)
+      raabro (~> 1.4)
+    raabro (1.4.0)
+    rack (2.2.3)
+    redis (4.3.1)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
+    rufus-scheduler (3.7.0)
+      fugit (~> 1.1, >= 1.1.6)
+    sidekiq (6.2.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
+    sidekiq-scheduler (3.1.0)
+      e2mmap
+      redis (>= 3, < 5)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 3)
+      thwait
+      tilt (>= 1.4.0)
+    thwait (0.2.0)
+      e2mmap
+    tilt (2.0.10)
+    tzinfo (2.0.4)
+      concurrent-ruby (~> 1.0)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  rspec (~> 3.5.0)
+  sidekiq-scheduler
+
+RUBY VERSION
+   ruby 3.0.1p64
+
+BUNDLED WITH
+   2.2.15
