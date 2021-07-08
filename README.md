@@ -16,7 +16,7 @@ So, first of all, builds the image from the Dockerfile and its development depen
 
 To run the tests with rspec, just do:
 
-`docker-compose run web rspec spec/`
+`docker-compose run rspec`
 
 And, to start the whole application:
 
@@ -34,7 +34,6 @@ While that is happening in the background, it’s possible to see the disburseme
   - Api filters to search for disbursements by a given merchant and on a given week. I see two ways to solve that:
     - By applying a query string to the REST endpoint, for example: http://localhost:4567/disbursements?merchant_id=1&date=10/10/2021;
     - By a merchants REST endpoint, for example http://localhost:4567/merchants/1/disbursements?date=10/10/2021;
-- Integration test for the REST disbursements endpoint.
 
 Some improvements, could be:
 - Use Order’s objects, instead of simply Hash objects passing around;
