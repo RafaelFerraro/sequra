@@ -1,7 +1,7 @@
 require 'json'
 
 class DisbursementsRepository
-  def self.create(disbursement, source = './dataset/disbursements.json')
+  def self.create(disbursement, source = dataset_source)
     file = File.read(source)
     json = JSON.parse(file)
     updated_content = json
@@ -12,8 +12,14 @@ class DisbursementsRepository
     end
   end
 
-  def self.all(source = './dataset/disbursements.json')
+  def self.all(source = dataset_source)
     file = File.read(source)
     JSON.parse(file)['RECORDS']
+  end
+
+  private
+
+  def self.dataset_source
+    ENV["DISBURSEMENTS_DATASET_SOURCE"]
   end
 end

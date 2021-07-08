@@ -10,6 +10,7 @@ services:
       - "4567:4567"
     environment:
       REDIS_URL: "redis://redis:6379"
+      DISBURSEMENTS_DATASET_SOURCE: './dataset/disbursements.json'
   sidekiq:
     build: .
     volumes:
@@ -18,5 +19,12 @@ services:
       - redis
     environment:
       REDIS_URL: "redis://redis:6379"
+      DISBURSEMENTS_DATASET_SOURCE: './dataset/disbursements.json'
     command: "bundle exec sidekiq -r ./config/sidekiq.rb"
-
+  rspec:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    environment:
+      DISBURSEMENTS_DATASET_SOURCE: './spec/support/dataset/disbursements.json'
+    command: "rspec spec/"
