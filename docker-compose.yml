@@ -2,6 +2,16 @@ version: "3.3"
 services:
   redis:
     image: "redis:alpine"
+  database:
+    image: postgres
+    volumes:
+      - postgres:/var/lib/postgresl
+    environment:
+      POSTGRES_PASSWORD: sequra
+      POSTGRES_USER: sequra
+      POSTGRES_DB: sequra
+    ports:
+      - '5432:5432'
   web:
     build: .
     volumes:
@@ -11,15 +21,20 @@ services:
     environment:
       REDIS_URL: "redis://redis:6379"
       DISBURSEMENTS_DATASET_SOURCE: './dataset/disbursements.json'
+      DATABASE_URL: "postgres://sequra:sequra@database/sequra"
+    depends_on:
+      - database
   sidekiq:
     build: .
     volumes:
       - .:/usr/src/app
     depends_on:
       - redis
+      - database
     environment:
       REDIS_URL: "redis://redis:6379"
       DISBURSEMENTS_DATASET_SOURCE: './dataset/disbursements.json'
+      DATABASE_URL: "postgres://sequra:sequra@database/sequra"
     command: "bundle exec sidekiq -r ./config/sidekiq.rb"
   rspec:
     build: .
@@ -28,3 +43,6 @@ services:
     environment:
       DISBURSEMENTS_DATASET_SOURCE: './spec/support/dataset/disbursements.json'
     command: "rspec spec/"
+
+volumes:
+  postgres:
