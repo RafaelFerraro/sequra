@@ -9,14 +9,21 @@ end
 
 task :populate_database do
   require 'json'
-  require './domain/merchant'
+  require './infra/repositories/merchants_repository'
 
   file = File.read('dataset/merchants.json')
   merchants = JSON.parse(file)['RECORDS']
-  database = Sequel.connect(ENV['DATABASE_URL'])
 
   merchants.each do |merchant_attributes|
-    merchants_table = database[:merchants]
-    merchants_table.insert(merchant_attributes.transform_keys(&:to_sym))
+    merchant_attributes.delete('id')
+    MerchantsRepository.create(merchant_attributes.transform_keys(&:to_sym))
   end
+end
+
+task :drop_tables do
+  database = Sequel.connect(ENV['DATABASE_URL'])
+
+  database.drop_table?(:schema_info)
+  database.drop_table?(:orders)
+  database.drop_table?(:merchants)
 end
