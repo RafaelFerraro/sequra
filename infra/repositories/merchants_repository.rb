@@ -1,5 +1,6 @@
 DB = Sequel.connect(ENV['DATABASE_URL'])
 class Merchant < Sequel::Model(:merchants)
+  plugin :uuid, :field => :id
   plugin :timestamps
 end
 

@@ -1,7 +1,7 @@
 Sequel.migration do
   change do
     create_table(:merchants) do
-      primary_key :id
+      uuid :id, primary_key: true
       String :name, null: false
       String :email
       String :cif, null: false
