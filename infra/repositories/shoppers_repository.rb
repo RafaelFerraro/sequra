@@ -1,11 +1,11 @@
 DB ||= Sequel.connect(ENV['DATABASE_URL'])
-class Merchant < Sequel::Model(:merchants)
+class Shopper < Sequel::Model(:shoppers)
   plugin :uuid, :field => :id
   plugin :timestamps
 end
 
-class MerchantsRepository
+class ShoppersRepository
   def self.create(attributes = {})
-    Merchant.create(attributes)
+    Shopper.create(attributes)
   end
 end
