@@ -35,4 +35,5 @@ task :drop_tables do
   database.drop_table?(:schema_info)
   database.drop_table?(:orders)
   database.drop_table?(:merchants)
+  database.drop_table?(:shoppers)
 end
