@@ -12,6 +12,23 @@ So, first of all, builds the image from the Dockerfile and its development depen
 
 `docker-compose build`
 
+### Database
+
+Before we run the migration command, we have to make sure that the application database is up and running. As we have the database defined as a web application dependency in our services configurations, inside the docker-compose.yml file, it is a good option to start the database by running the web application. In this way, we guarantee that our database initialization is made properly.
+
+`docker-compose run -d web`
+
+The command above will initialize two containers, the web app and the database as its dependency. If you run `docker ps` in your terminal, you should see something like this:
+
+```
+$ docker ps
+CONTAINER ID   IMAGE        COMMAND                  CREATED         STATUS         PORTS                    NAMES
+64fe1ad5bfb5   sequra_web   "bundle exec rackup …"   3 seconds ago   Up 2 seconds   4567/tcp                 sequra_web_run_40f06a006e06
+b2d7c9d37a0b   postgres     "docker-entrypoint.s…"   3 seconds ago   Up 2 seconds   0.0.0.0:5432->5432/tcp   sequra_database
+```
+
+Now, you can run all of its migrations, by typing `docker exec sequra_web_run_40f06a006e06 rake migrate`.
+
 ### Running
 
 To run the tests with rspec, just do:

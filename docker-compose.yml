@@ -4,6 +4,7 @@ services:
     image: "redis:alpine"
   database:
     image: postgres
+    container_name: sequra_database
     volumes:
       - postgres:/var/lib/postgresl
     environment:
