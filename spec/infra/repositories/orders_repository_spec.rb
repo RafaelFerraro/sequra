@@ -1,68 +1,52 @@
 require './infra/repositories/orders_repository.rb'
+require 'securerandom'
 
 RSpec.describe OrdersRepository do
-  context 'when asking for completed orders in the week' do
-    it 'returns a list of them if exists' do
-      json_list = {
-        "RECORDS" => [
-          {
-            "id" => "1",
-            "merchant_id" => "10",
-            "shopper_id" => "328",
-            "amount" => "287.22",
-            "created_at" => "01/01/2018 19:57:00",
-            "completed_at" => ""
-          },
-          {
-            "id" => "2",
-            "merchant_id" => "8",
-            "shopper_id" => "327",
-            "amount" => "288.71",
-            "created_at" => "01/01/2018 20:54:00",
-            "completed_at" => (DateTime.now - 2).strftime("%d/%m/%Y %H:%M:%S")
-          },
-          {
-            "id" => "2",
-            "merchant_id" => "8",
-            "shopper_id" => "327",
-            "amount" => "288.71",
-            "created_at" => "05/07/2021 20:54:00",
-            "completed_at" => (DateTime.now - 8).strftime("%d/%m/%Y %H:%M:%S")
-          }
-        ]
+  after(:each) do
+    OrdersRepository.destroy_all
+  end
+
+  context 'when asking to create a new Order' do
+    it 'persists the new Order properly' do
+      merchant = double(id: SecureRandom.uuid)
+      shopper = double(id: SecureRandom.uuid)
+      attributes = {
+        merchant_id: merchant.id,
+        shopper_id: shopper.id,
+        amount: 15.9
       }
 
-      result = OrdersRepository.find_week_completed_orders(json_list)
+      subject = OrdersRepository.create(attributes)
+
+      expect(subject.values[:id]).to_not be_nil
+    end
+  end
+
+  context 'when asking for completed orders in the current week' do
+    it 'returns a list of them if exists' do
+      merchant = double(id: SecureRandom.uuid)
+      shopper = double(id: SecureRandom.uuid)
+      today = Date.today
+      order_of_the_week = OrdersRepository.create(
+        {
+          merchant_id: merchant.id,
+          shopper_id: shopper.id,
+          amount: 15.9,
+          completed_at: today
+        }
+      )
+      OrdersRepository.create(
+        {
+          merchant_id: merchant.id,
+          shopper_id: shopper.id,
+          amount: 15.9,
+          completed_at: today - 8
+        }
+      )
+      result = OrdersRepository.find_week_completed_orders
 
       expect(result.length).to eq(1)
-      expect(result.first["id"]).to eq("2")
-    end
-
-    it 'returns an empty list if there is none' do
-      json_list = {
-        "RECORDS" => [
-          {
-            "id" => "1",
-            "merchant_id" => "10",
-            "shopper_id" => "328",
-            "amount" => "287.22",
-            "created_at" => "01/01/2018 19:57:00",
-            "completed_at" => ""
-          },
-          {
-            "id" => "2",
-            "merchant_id" => "8",
-            "shopper_id" => "327",
-            "amount" => "288.71",
-            "created_at" => "01/01/2018 20:54:00",
-            "completed_at" => ""
-          }
-        ]
-      }
-
-      result = OrdersRepository.find_week_completed_orders(json_list)
-
-      expect(result.empty?).to eq(true)
+      expect(result.first[:id]).to eq(order_of_the_week.values[:id])
     end
   end
 end
